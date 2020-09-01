@@ -1,0 +1,51 @@
+delete user
+1  in article model  fetch the particulr user article
+2  base on article id or  user id delete comments 
+3  based on user id find article nd delete article
+4  based on user id if article nd comments  are zero  delete user 
+
+
+ await Article.find({userId:id})
+       .then((article)=>{
+           let art=article
+              art.map(ele=>{
+
+
+   Comment.deleteMany({articleId:ele._id,}, function(err, result) {
+                             if (err) {
+                                      res.send(err);
+                               } else { 
+                               console.log(result)
+                                 }
+                            });
+
+
+                            Comment.deleteMany({userId:ele.userId}, function(err, result) {
+                                if (err) {
+                                         res.send(err);
+                                  } else { 
+                                  console.log(result)
+                                    }
+                               });
+
+
+              })
+              
+
+            
+
+       })
+    
+
+         
+
+     await Article.deleteMany({userId:id})
+       .then((user)=>{
+           console.log(user)
+       })
+       .catch((err)=>{
+           res.json(err)
+       })
+
+    
+         
