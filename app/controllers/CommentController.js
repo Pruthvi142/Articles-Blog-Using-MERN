@@ -53,7 +53,7 @@ CmtCltr.delete=(req,res)=>{
               
             art.save()
               .then((art)=>{
-                  res.json(art)
+                //   res.json(art)
               })
            
           })
@@ -64,7 +64,7 @@ CmtCltr.delete=(req,res)=>{
  Comment.findByIdAndDelete({_id:id})
         .then((cmnt)=>{
             cmnt.save()
-            //  res.json({message:"comment deleted succesfully"})
+              res.json(cmnt)
         })
    
       

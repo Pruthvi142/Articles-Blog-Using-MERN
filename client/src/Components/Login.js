@@ -44,7 +44,7 @@ class Login extends Component {
                     <div className="col-md-4"></div>
                     <div className="col-md-3">
                         
-                        <form className="form-conatianer" onSubmit={this.handleSubmit} >
+                        <form className="form-conatianer" onSubmit={this.handleSubmit}  >
                             
                       
                             <div className="form-group">

@@ -114,12 +114,15 @@ showComent=(id)=>{
       {
           console.log("dis",id)
           this.props.dispatch(startUesrDislike(id))
-           window.location.reload(false)
+        //    window.location.reload(false)
       }
 
       componentDidMount(){
-    
-        this.props.dispatch(startGetArticle())
+         if(this.props.article.length==0)
+         {
+            this.props.dispatch(startGetArticle())
+         }
+      
         this.props.dispatch(startGetAllUsers())
        
       

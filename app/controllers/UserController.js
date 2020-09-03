@@ -8,7 +8,7 @@ userCltr.register=(req,res)=>{
 
   const user=new User(body)
   user.role="user"
-  user.profile=req.file.path
+//   user.profile=req.file.path
  console.log(req.file)
    user.save()
      .then((user)=>{

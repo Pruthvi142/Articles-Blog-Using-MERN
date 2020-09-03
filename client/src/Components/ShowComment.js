@@ -14,9 +14,7 @@ import { startDeleteComment } from '../Actions/commentAction'
     DeleteCmt=(id)=>{
         
              this.props.dispatch(startDeleteComment(id))
-        
-
-    }
+             }
 
     componentDidMount(){
         

@@ -6,13 +6,16 @@ export const setUser=(data)=>{
     console.log("action user data",data)
     return{type:'SET_USER',payload:data}
 }
-export const setAllUser=(data)=>{
+export const getAllUser=(data)=>{
     console.log ("setuser",data)
-    return {type:'SET_ALL_USER',payload:data}
+    return {type:'GET_ALL_USER',payload:data}
 
 }
 export const deleteUser=(data)=>{
     return {tye:'DELETE_USER',payload:data}
+}
+export const setAlluser=(data)=>{
+     return{type:'SET_ALL_USER',payload:data}
 }
 
 export const startUserRegister=(formdata,redirect)=>{
@@ -26,9 +29,11 @@ export const startUserRegister=(formdata,redirect)=>{
                     position:"top",
                     title: 'register sucessfully',
                    
+                   
                   }).then(result=>{
                        if(result.value)
                        {
+                        dispatch(setAlluser(user))
                         redirect()
                        }
                   })
@@ -103,7 +108,7 @@ export const startGetAllUsers=()=>{
        .then((respones)=>{
            console.log(respones.data)
            const data=respones.data
-           dispatch(setAllUser(data))
+           dispatch(getAllUser(data))
        })
   }
 }

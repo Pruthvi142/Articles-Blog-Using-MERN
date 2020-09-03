@@ -19,7 +19,7 @@ const MyArticleReducer=( state=[],action)=>{
 
         }
         case 'DELETE':{
-            return state.filter(ele=>ele._id!=action .payload._id)
+            return state.filter(ele=>ele._id!=action.payload._id)
 
         }
         default:{

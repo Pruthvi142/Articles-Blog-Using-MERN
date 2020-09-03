@@ -40,7 +40,7 @@ AdminCltr.register=(req,res)=>{
 
 AdminCltr.login=(req,res)=>{
     const body =req.body
-    // const user=new User(body)
+     const user=new User(body)
     User.findOne({email:body.email})
      .then((user)=>{
          if(user)

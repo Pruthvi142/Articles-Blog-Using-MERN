@@ -18,13 +18,16 @@ import moment from 'moment'
          if(confirm)
          {
              this.props.dispatch(startAdminDeleteUser(id))
-             window.location.reload(false)
+            //  window.location.reload(false)
          }
 
     }
     componentDidMount(){
-        
-        this.props.dispatch(startGetAllUsers())
+        if(this.props.all.length==0)
+        {
+            this.props.dispatch(startGetAllUsers())
+        }
+      
     } 
   
     render() {

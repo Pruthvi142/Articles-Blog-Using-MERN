@@ -14,7 +14,7 @@ MyArticleLike.create=async(req,res)=>
    })
  await  likes.save()
        .then((like)=>{
-           res.json(like)
+          //  res.json(like)
        })
        .catch((err)=>{
            res.json(err)
@@ -23,6 +23,10 @@ MyArticleLike.create=async(req,res)=>
   console.log("like",art)
 art.likes.push(likes.userId)
 await art.save() 
+      .then((arti)=>{
+          res.json(arti)
+      })
+     
 }
 
 MyArticleLike.destory=(req,res)=>
@@ -36,7 +40,7 @@ MyArticleLike.destory=(req,res)=>
         
       art.save()
         .then((art)=>{
-            // res.json(art)
+            res.json(art)
         })
      
     })

@@ -8,7 +8,7 @@ export const setUser=(data)=>{
 }
 
 export const deleteUser=(data)=>{
-    return {tye:'DELETE_USER',payload:data}
+    return {type:'DELETE_USER',payload:data}
 }
 export const deleteArt=(data)=>{
     return{type:'DELETE_ARTICLE',payload:data}
@@ -50,6 +50,7 @@ export const startAdminLogin=(formdata,redirect)=>{
               }
               else
               {
+                console.log(respones.data.token)
                 Swal.fire({
                     icon: 'success',
                     position:"top",
