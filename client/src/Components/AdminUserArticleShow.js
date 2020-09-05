@@ -16,10 +16,10 @@ import  {startGetAllUsers} from '../Actions/userAction'
 
     
     render() {
-       console .log( "articleshow",this.props.all)
+       console .log( "articleshow",this.props.user)
         return (
             <div>
-                <h1 style={{fontFamily:"Times New Roman"}}> username:{this.props.all?.username}</h1><br/>
+                <h1 style={{fontFamily:"Times New Roman"}}> username:{this.props.user?.username}</h1><br/>
                <h1 style={{fontFamily:"Times New Roman"}}> Number of posts :{this.props.article.length}</h1>
                
                       
@@ -55,7 +55,7 @@ const mapStateToProps=(state,props)=>{
     return{
 
         article:state.articles.filter(ele=>ele.userId==props.match.params.id),
-        all:state.allUsers.find(ele=>ele._id==props.match.params.id)
+        user:state.allUsers.find(ele=>ele._id==props.match.params.id)
     }
 }
 export default connect(mapStateToProps)(ArticleShow)

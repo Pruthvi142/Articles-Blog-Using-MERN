@@ -38,17 +38,15 @@ import moment from 'moment'
                 {
                     
                     this.props.all.map(ele=>{
-                        let pro=ele.profile
-                        console.log("type",typeof(ele.profile))
+                     
                         return(
                            
                             <div className="card border-secondary mb-3" style={{width:"18rem"}}>
                          <div className="card-body text-secondary">
                            
-                         <img  src= {  './uploads/' + pro} alt="hi"/>
-                         {
-                             console.log("pro",ele.profile)
-                         }
+                         <img  class="rounded-circle" alt="100x100 " src={ `http://localhost:7000/${ele.profile}`} width="100" height="100"/>
+                         {/* <Card.Img variant="top"src={"http://localhost:3000/ele.profile"}alt="Photo"/> */}
+                     
                          
                         <h5 class="card-title"> Name:<Link to ={`/users/articleshow/${ele._id}`}>{ele.username}</Link></h5>
                         <p class="card-text">Email:{ele.email}</p>

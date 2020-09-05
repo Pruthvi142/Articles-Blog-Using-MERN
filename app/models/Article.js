@@ -1,5 +1,8 @@
 const {Schema,model}=require('mongoose')
 const ArticleSchema=new Schema({
+  profile:{
+type:String
+  },
        title:{
            type:String,
            required:true
@@ -8,6 +11,7 @@ const ArticleSchema=new Schema({
            type:String,
            required:true
        },
+      
        likes:[{type: Schema.Types.ObjectId , ref:'Likes'}],
        comments: [
         {

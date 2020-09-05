@@ -14,7 +14,7 @@ CmtCltr.create=async (req,res)=>{
        .then((cmt)=>{
         
            
-           res.json({message:"comment added succesfully"})
+          //  res.json({message:"comment added succesfully"})
        })
        .catch((err)=>{
            res.json(err)
@@ -26,6 +26,9 @@ CmtCltr.create=async (req,res)=>{
 
             
       await  art.save()
+           .then((arts)=>{
+               res.json(arts)
+           })
      
 
 }
@@ -53,7 +56,7 @@ CmtCltr.delete=(req,res)=>{
               
             art.save()
               .then((art)=>{
-                //   res.json(art)
+                // res.json(art)
               })
            
           })

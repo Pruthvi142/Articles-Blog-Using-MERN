@@ -7,22 +7,8 @@ const adminCltr=require('../app/controllers/AdminController')
 const CmtCltr=require('../app/controllers/CommentController')
 const AdminCltr = require("../app/controllers/AdminController")
 const ArtLike=require("../app/controllers/LikesController")
-// const upload=require('../app/middlewares/profilePic')
-const { response } = require("express")
+const upload=require('../app/middlewares/profilePic')
 
-
-// const multer =require('multer')
- 
-// const storage = multer.diskStorage({
-//     destination: function(req, file, cb) {
-//       cb(null, './uploads/');
-//     },
-//     filename: function(req, file, cb) {
-//       cb(null, new Date().toISOString() + file.originalname);
-//     }
-//   }); 
-//  const upload=multer({storage:storage})
-//  module.exports=upload
 // Admin Routes 
 router.post('/admin/register',adminCltr.register)
 router.post('/admin/login',adminCltr.login)
@@ -32,7 +18,7 @@ router.delete('/admin/article/delete/:id',AuthUser,AdminCltr.ArticleDelete)
 router.delete('/admin/comment/delete/:id',AuthUser,adminCltr.CommentDelete)
 
 //Users Log nd Reg Routers
-router.post('/users/register', userCltr.register)
+router.post('/users/register',  upload.single("profile"),userCltr.register)
 router.post('/users/login',userCltr.login)
 //unauthorised users Routes
 router.get('/users/allusers',userCltr.list)
@@ -45,6 +31,8 @@ router.put('/users/myarticles/:id',authenticateUser,myArtCltr.update)
 router.delete('/users/myarticles/:id',authenticateUser,myArtCltr.destory)
 router.post('/users/articles/likes/:id',authenticateUser,ArtLike.create)
 router.delete('/users/articles/dislikes/:id',authenticateUser ,ArtLike.destory)
+router.post('/users/follow/:id',authenticateUser,userCltr.follower)
+router.delete('/users/unfollow/:id',authenticateUser,userCltr.unfollow)
 
 // Comments Routes 
 router.post('/article/comment/:id', authenticateUser,CmtCltr.create)

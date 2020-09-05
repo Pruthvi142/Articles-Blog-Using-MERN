@@ -30,6 +30,15 @@ const UserSchema=new Schema({
           required:true,
           minlength:8
       },
+      followers:[{
+        type:  Schema.Types.ObjectId,
+        ref:'User'
+       }],
+       following:[{
+        type:  Schema.Types.ObjectId,
+        ref:'User'
+
+       }],
       role:{
            type:String,
         

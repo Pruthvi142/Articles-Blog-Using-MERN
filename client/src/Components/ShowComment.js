@@ -12,13 +12,17 @@ import { startDeleteComment } from '../Actions/commentAction'
 
 
     DeleteCmt=(id)=>{
+         const redirect=()=>{
+            this.props.history.push('/')
+         }
         
-             this.props.dispatch(startDeleteComment(id))
+             this.props.dispatch(startDeleteComment(id,redirect))
              }
 
     componentDidMount(){
         
         this.props.dispatch(startGetAllUsers())
+        
         this.props.dispatch(startGetArticle())
     } 
     AllPost=()=>{

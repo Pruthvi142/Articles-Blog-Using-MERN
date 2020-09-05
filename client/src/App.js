@@ -14,16 +14,17 @@ import AdminLogin from './Components/AdminLogin'
 import Allusers  from './Components/Allusers';
 import Addcomment from './Components/AddComment'
 import AdminReg from './Components/AdminReg'
-import ArticleShow from './Components/ArticleShow';
+import UserArticleShow from './Components/AdminUserArticleShow';
 import ShowComments from './Components/ShowComment'
 import AdminAllArticles from './Components/AdminAllArticles';
 import AdminShowComment from './Components/AdminShowComment';
+import Profile from './Components/userProfileShow'
 
 import Swal from 'sweetalert2'
 import { library } from '@fortawesome/fontawesome-svg-core'
- import { faThumbsUp, faThumbsDown} from '@fortawesome/free-solid-svg-icons'
+ import { faThumbsUp, faThumbsDown ,faUserCircle,faPlusSquare ,faMinusSquare} from '@fortawesome/free-solid-svg-icons'
 
-library.add(faThumbsUp,faThumbsDown)
+library.add(faThumbsUp,faThumbsDown,faUserCircle,faPlusSquare,faMinusSquare)
 
 
 function App(props) {
@@ -123,10 +124,11 @@ function App(props) {
          <Route path="/users/allusers" component={Allusers}/>
          <Route path="/article/comment/:id" component={Addcomment}/>
          <Route path="/admin/register" component={AdminReg}/>
-         <Route path='/users/articleshow/:id' component={ArticleShow}/>
+         <Route path='/users/articleshow/:id' component={UserArticleShow}/>
          <Route path="/article/showcomment/:id" component={ShowComments}/>
          <Route path="/admin/articles" component={AdminAllArticles} exact={true }/>
          <Route path="/admin/showcomment/:id"component={AdminShowComment}/>
+         <Route path="/users/profile/:id"component={Profile}/>
          </BrowserRouter>
 
     </div>

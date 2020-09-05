@@ -17,12 +17,33 @@ const ArticleReducer=(state=[],action)=>{
         case 'DELETE_ARTICLE':{
             return state.filter(ele=>ele._id!=action.payload._id)
         }
+        case 'ADD COMMENT':{
+            return state.map(ele=>{
+                if(ele._id==action.payload._id)
+                {
+                    return Object.assign({},ele,action.payload)
+                }
+                else
+                {
+                    return Object.assign({},ele)
+                }
+            })
+
+        }
         case 'DELETE COMMENT':{
             console.log("dele cmt",action.payload._id )
             console.log("cmot in state",state)
             let cmt=state.find(ele=>ele._id==action.payload. articleId)
             console.log("art in cmt",cmt)
-            return cmt.comments.filter(ele=>ele._id!=action.payload._id)
+         return cmt.comments.filter(ele=>ele._id!=action.payload._id)
+          
+           
+
+
+          
+
+
+
         }
         case 'LIKE_ART':{
            

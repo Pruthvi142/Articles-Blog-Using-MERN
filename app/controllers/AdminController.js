@@ -24,7 +24,7 @@ AdminCltr.register=(req,res)=>{
                   })
               
              }
-             else
+           else
              {
                   res.json({errors:"admin already there"})
              }

@@ -8,7 +8,7 @@ userCltr.register=(req,res)=>{
 
   const user=new User(body)
   user.role="user"
-//   user.profile=req.file.path
+ user.profile=req.file.path
  console.log(req.file)
    user.save()
      .then((user)=>{
@@ -78,6 +78,39 @@ userCltr.list=(req,res)=>{
     .catch((err)=>{
         console.log(err)
     })
+
+}
+userCltr.follower=(req,res)=>{
+    const id=req.params.id
+    User.findByIdAndUpdate(id,{$push:{followers:req.user._id}},{new:true})
+       .then((user)=>{
+           res.json(user)
+       })
+       .catch((err)=>{
+           res.json(err)
+       })
+       User.findByIdAndUpdate(req.user._id,{$push:{following:id}},{new:true})
+         .then((user)=>{
+            //  res.json(user)
+         })
+         .catch((err)=>{
+             res.json(err)
+         })
+
+}
+userCltr.unfollow=(req,res)=>{
+    const id=req.params.id
+    User.findByIdAndUpdate(id,{$pull:{followers:req.user._id}},{new:true})
+       .then((user)=>{
+        res.json(user)
+       })
+       .catch((err)=>{
+           res.json(err)
+       })
+       User.findByIdAndUpdate(req.user._id,{$pull:{following:id}},{new:true})
+         .then((user)=>{
+            //  res.json("unfollow the user")
+         })
 
 }
 module.exports=userCltr

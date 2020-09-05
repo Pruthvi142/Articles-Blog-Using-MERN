@@ -5,8 +5,9 @@ const routes=require('./configure/Routes')
 const app =express()
 const port =7000
 app.use(cors())
-app.use(express.json())
 app.use('/uploads',express.static('uploads'))
+app.use(express.json())
+
 
 app.use(routes)
 

@@ -11,6 +11,9 @@ export const deleteComment=(data)=>{
     return {type: 'DELETE COMMENT',payload:data}
 
 }
+export const addcmt=(data)=>{
+    return{type:'ADD COMMENT',payload:data}
+}
 export const startAddComment=(id ,formdata,redirect)=>{
     console.log("cmt id", id)
     return(dispatch)=>{
@@ -18,6 +21,7 @@ export const startAddComment=(id ,formdata,redirect)=>{
          .then((response)=>{
           console.log("comment",response.data)
           const data=response.data
+          dispatch(addcmt(data))
         
           redirect()
          })
@@ -27,7 +31,7 @@ export const startAddComment=(id ,formdata,redirect)=>{
 
     }
 }
-export const startDeleteComment=(id)=>{
+export const startDeleteComment=(id ,redirect)=>{
     return(dispatch)=>{
 
 
@@ -45,14 +49,16 @@ export const startDeleteComment=(id)=>{
                 axios.delete(`http://localhost:7000/article/comment/delete/${id}`,{headers:{'Authorization':localStorage.getItem('authToken')}})
                 .then((response)=>{
                     const data=response.data
-                    console.log(data)
+                    console.log("delete cmt",data)
                   
                     Swal.fire(
                         'Deleted!',
                          'comment deleted succesfully',
                         'success',
                     
-                        dispatch(deleteComment(data))
+                    dispatch(deleteComment(data)),
+                    redirect()
+                    // window.location.href="/"
                       )
               
                     
