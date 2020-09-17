@@ -7,7 +7,7 @@ class Register extends Component {
     constructor(props) {
         super(props)
         this.state={
-              profile:"",
+              profile:null,
               username:"",
               email:"",
               password:""
@@ -18,19 +18,26 @@ class Register extends Component {
         this.setState({[e.target.name]:e.target.value})
 
     }
+    handleProfile=(e)=>{
+      this.setState({
+        profile:e.target.files[0]
+      })
+    }
     handleSubmit=(e)=>{
       
       e.preventDefault()
-      const formData={
-          profile:this.state.profile,
-          username:this.state.username, 
-          email:this.state.email,
-          password:this.state.password
-      }
+    
+    console.log("file",this.state.profile)
+    const data =new FormData()
+      data.append("username",this.state.username)
+      data.append("email",this.state.email)
+      data.append("password",this.state.password)
+      data.append("profile",this.state.profile)
+       console.log("form data",data)
       const redirect=()=>{
         this.props.history.push('/user/login')
       }
-      this.props.dispatch(startUserRegister(formData,redirect))
+      this.props.dispatch(startUserRegister(data,redirect))
     
     }
     
@@ -41,9 +48,11 @@ class Register extends Component {
                     <div className="col-md-4"></div>
                     <div className="col-md-3">
                     <h2 style={{marginTop:"4vh",color:"white"}} >Register with us</h2>
-                        <form className="container" onSubmit={this.handleSubmit} style={{marginTop:"10vh"}}>
+                        <form className="container" onSubmit={this.handleSubmit} style={{marginTop:"10vh"}} encType="multipart/form-data">
                         
-                        
+                        <div className="form-group">
+                           <input type="file" className="form-control"  name="profile" value={this.state.value} onChange={this.handleProfile} />         
+                        </div>
                             <div className="form-group">
                               <label style={{color:"white"}}>username:</label>
                                {/* display the icon */}

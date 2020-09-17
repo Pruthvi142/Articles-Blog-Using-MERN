@@ -44,7 +44,8 @@ import moment from 'moment'
                             <div className="card border-secondary mb-3" style={{width:"18rem"}}>
                          <div className="card-body text-secondary">
                            
-                         <img  class="rounded-circle" alt="100x100 " src={ `http://localhost:7000/${ele.profile}`} width="100" height="100"/>
+                        <a href to ={ `http://localhost:7000/${ele.profile}`} download /> 
+                         <img  class="rounded-circle" alt="100x100 " src={ `http://localhost:7000/${ele.profile}`} width="50" height="100"/>
                          {/* <Card.Img variant="top"src={"http://localhost:3000/ele.profile"}alt="Photo"/> */}
                      
                          

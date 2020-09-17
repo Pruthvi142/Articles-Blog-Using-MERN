@@ -4,7 +4,7 @@ import{selectCmtUser} from '../selectors/selectComtUser'
 import {startGetArticle} from '../Actions/ArticlActions'
 
 import {connect} from 'react-redux'
-import { startDeleteComment } from '../Actions/commentAction'
+import { startDeleteComment, startGetAllComments } from '../Actions/commentAction'
 
 
   class Show extends Component {
@@ -12,11 +12,11 @@ import { startDeleteComment } from '../Actions/commentAction'
 
 
     DeleteCmt=(id)=>{
-         const redirect=()=>{
-            this.props.history.push('/')
-         }
+        //  const redirect=()=>{
+        //     this.props.history.push('/')
+        //  }
         
-             this.props.dispatch(startDeleteComment(id,redirect))
+             this.props.dispatch(startDeleteComment(id))
              }
 
     componentDidMount(){
@@ -24,6 +24,7 @@ import { startDeleteComment } from '../Actions/commentAction'
         this.props.dispatch(startGetAllUsers())
         
         this.props.dispatch(startGetArticle())
+        this.props.dispatch(startGetAllComments())
     } 
     AllPost=()=>{
         this.props.history.push('/')
@@ -35,23 +36,31 @@ import { startDeleteComment } from '../Actions/commentAction'
 
         console.log("show in cmp",this.props.allusers)
         console.log("show in art",this.props.article?.comments)
+        console.log("show commennst",this.props.comments)
         return (
             <div>
                 number of comments 
                 {
+                    
                     this.props.article?.comments.map(ele=>{
                         let names=selectCmtUser(this.props.allusers,ele.userId)
-                        return(
-                            <div className="card border-secondary mb-3" style={{width:"18rem"}}>
-                         <div className="card-body text-secondary">
-                        <h5 class="card-title">@{names?.email}</h5>
-                        <p class="card-text">{ele.body}</p>
-                        {/* <p class="card-text"> CreatedOn--{moment(ele.createdAt).format('l')}</p> */}
-         {this.props.user._id==ele.userId? (<div><button type="button" class="btn btn-danger" onClick={()=>{this.DeleteCmt(ele._id)}}>Delete</button></div>):""}
-
-                       </div></div>
-
-                        ) 
+                        let comments=this.props.comments.find(cmt=>cmt._id==ele._id)
+                        if(comments?.body)
+                        {
+                            return(
+                               
+                                <div className="card border-secondary mb-3" style={{width:"18rem"}}>
+                             <div className="card-body text-secondary">
+                            <h5 class="card-title">@{names?.email}</h5>
+                            <p class="card-text">{comments?.body}</p>
+                            {/* <p class="card-text"> CreatedOn--{moment(ele.createdAt).format('l')}</p> */}
+             {this.props.user._id==ele.userId? (<div><button type="button" class="btn btn-danger" onClick={()=>{this.DeleteCmt(ele._id)}}>Delete</button></div>):""}
+    
+                           </div></div>
+    
+                            ) 
+                        }
+                      
                       
                     })
                 }
@@ -64,7 +73,8 @@ const mapStateToProps=(state,props)=>{
     return{
         allusers:state.allUsers,
         article:state.articles.find(ele=>ele._id==props.match.params.id),
-        user: state.users
+        user: state.users,
+        comments:state.comments
     }
 }
 export default connect(mapStateToProps)(Show)

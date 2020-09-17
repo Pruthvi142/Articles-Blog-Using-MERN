@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { startArticlePost } from '../Actions/ArticlActions';
 import {connect} from 'react-redux'
+import { startGetUser } from '../Actions/userAction';
 
  class AddArticle extends Component {
     constructor(props) {
@@ -10,6 +11,9 @@ import {connect} from 'react-redux'
             body:""
         }
         
+    }
+    componentDidMount(){
+         this.props.dispatch(startGetUser())
     }
     handleChange=(e)=>{
 
@@ -39,6 +43,11 @@ import {connect} from 'react-redux'
     
   
     render() {
+        console.log("add user",this.props.user)
+        //    if(Object.keys(this.props.user).length==0)
+        //    {
+        //     this.props.history.push('/user/login')
+        //    }
         return (
             <div className="container"> 
             <div className="row">
@@ -65,8 +74,9 @@ import {connect} from 'react-redux'
     }
 }
 const mapStateToProps=(state)=>{
+    console.log("sate",state.users)
     return{
-        user:state.users
+        user:state.users,
     }
 }
 export default connect(mapStateToProps)(AddArticle)

@@ -18,12 +18,14 @@ router.delete('/admin/article/delete/:id',AuthUser,AdminCltr.ArticleDelete)
 router.delete('/admin/comment/delete/:id',AuthUser,adminCltr.CommentDelete)
 
 //Users Log nd Reg Routers
-router.post('/users/register',  upload.single("profile"),userCltr.register)
+router.post('/users/register',upload.single('profile'),userCltr.register)
 router.post('/users/login',userCltr.login)
 //unauthorised users Routes
 router.get('/users/allusers',userCltr.list)
 router.get('/users/articles',myArtCltr.allArticle)
 //Authorized user Routes
+router.post('/users/forgetpassword',userCltr.forgetpassword)
+router.post('/users/newpassword',userCltr.newPassword)
 router.get('/users/account', authenticateUser,userCltr.account)
 router.post('/users/articles',authenticateUser,myArtCltr.create)
 router.get('/users/myarticles' ,authenticateUser,myArtCltr.list)

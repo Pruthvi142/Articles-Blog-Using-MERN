@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import React from 'react'
 
 
 export const setUser=(data)=>{
@@ -27,10 +28,18 @@ export const userUnfollow=(data)=>{
 
 export const startUserRegister=(formdata,redirect)=>{
       return(dispatch)=>{
-          axios.post('http://localhost:7000/users/register',formdata)
+          axios.post('http://localhost:7000/users/register',formdata,  { headers: {'Content-Type': 'multipart/form-data; ',}})
             .then((respones)=>{
                 console.log("response",respones.data)
                  const user=respones.data
+                 if(respones.data.hasOwnProperty('errors'))
+                 {
+                     console.log("err",respones.data)
+                     Swal.fire(respones.data.errors)
+                 }
+                 else{
+
+                 
                  Swal.fire({
                     icon: 'success',
                     position:"top",
@@ -45,13 +54,15 @@ export const startUserRegister=(formdata,redirect)=>{
                        }
                   })
                
-                
+                } 
             })
+        
             .catch((err)=>{
                 console.log(err)
             })
        
       }
+    
 }
 export const startUserLogin=(formdata,redirect)=>{
     return(dispatch)=>{
@@ -144,6 +155,72 @@ export const startUserUnfollow=(id)=>{
          })
          .catch((err)=>{
              console.log(err)
+         })
+    }
+}
+export const startForgetPassword=(formdata,redirect)=>{
+    return(dispatch)=>{
+        axios.post('http://localhost:7000/users/forgetpassword',formdata)
+             .then((response)=>{
+                 if(response.data.hasOwnProperty('errors'))
+                  {
+                    Swal.fire(response.data.errors)
+                  }
+                  else{
+                   
+            
+                    
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-center',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        onOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+                      
+                      Toast.fire({
+                        icon: 'success',
+                        title: response.data
+                      })
+                  }
+             })
+    }
+}
+export const startSetNewPassword=(formdata,redirect)=>{
+    console.log("form",formdata) 
+    return(dispatch)=>{
+        axios.post('http://localhost:7000/users/newpassword',formdata)
+         .then((response)=>{
+             if(response.data.hasOwnProperty('errors'))
+              {
+                  Swal.fire(response.data.errors)
+              }
+              else
+              {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-center',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    onOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  Toast.fire({
+                    icon: 'success',
+                    title: response.data.message,
+                   
+                  })
+                  redirect()
+                 
+              }
          })
     }
 }

@@ -11,7 +11,7 @@ const ArticleReducer=(state=[],action)=>{
          
         }
         case 'GET_ART':{
-            return [].concat(action.payload)
+            return [].reverse().concat(action.payload)
         }
       
         case 'DELETE_ARTICLE':{

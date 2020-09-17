@@ -21,7 +21,7 @@ const UserSchema=new Schema({
                      return isEmail(value)
                 },
                 message:function(){
-                      return "invalid email format"
+                      return {errors:"inavlid email format"}
                 }
           }
       },

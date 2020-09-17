@@ -4,6 +4,7 @@ import { BsEnvelopeFill,BsLock} from "react-icons/bs";
 import {startUserLogin} from '../Actions/userAction'
 import {connect} from 'react-redux'
 import './main.css'
+import {Link} from 'react-router-dom'
 class Login extends Component {
     constructor(props) {
         super(props)
@@ -67,6 +68,7 @@ class Login extends Component {
 </div>
                             </div>
                             <input type="submit" class="btn btn-success" value="submit"/>
+                            <h5> <Link to="/users/forgetpassword">forget password</Link></h5>
                         </form>
                     </div>
                   

@@ -27,6 +27,7 @@ CmtCltr.create=async (req,res)=>{
             
       await  art.save()
            .then((arts)=>{
+             console.log("cmt",arts)
                res.json(arts)
            })
      

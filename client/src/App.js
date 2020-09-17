@@ -2,7 +2,7 @@ import React from 'react';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import {  BsBoxArrowInLeft,BsBoxArrowInRight,BsFillPersonFill} from "react-icons/bs";
-import {Link,BrowserRouter,Route} from 'react-router-dom'
+import {Link,BrowserRouter,Route,Redirect} from 'react-router-dom'
 import Register from './Components/Register'
 import Login from './Components/Login'
 import Artile from './Components/Article'
@@ -19,6 +19,10 @@ import ShowComments from './Components/ShowComment'
 import AdminAllArticles from './Components/AdminAllArticles';
 import AdminShowComment from './Components/AdminShowComment';
 import Profile from './Components/userProfileShow'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Avatar from 'react-avatar'
+import ResetPassword from './Components/ResetPassword';
+import NewPassword from './Components/NewPassword';
 
 import Swal from 'sweetalert2'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -83,7 +87,7 @@ function App(props) {
             <a class="navbar-brand" href="#">Articles Blog</a>
                 <ul class="navbar-nav ml-auto">
   <li class="nav-item">
-              <Link to="/users/myarticles" class="nav-link">MyArticle (<BsFillPersonFill/>{props.user.username})</Link>
+              <Link to="/users/myarticles" class="nav-link"> {props.user.profile? ( <div>MyArticle-<img  class="rounded-circle" alt="100x100 " src={ `http://localhost:7000/${props.user.profile}`} width="25" height="25"/>{props.user.username}</div>):(<div>MyArticle-<Avatar color={Avatar.getRandomColor('sitebase', ['red'])} name={props.user.username} size="25" round={true} textSizeRatio={1.75} />{props.user.username}</div>)} </Link>
 </li>
 
 <li class="nav-item">
@@ -129,6 +133,8 @@ function App(props) {
          <Route path="/admin/articles" component={AdminAllArticles} exact={true }/>
          <Route path="/admin/showcomment/:id"component={AdminShowComment}/>
          <Route path="/users/profile/:id"component={Profile}/>
+         <Route path="/users/forgetpassword" component={ResetPassword}/>
+         <Route path="/users/reset/:id" component={NewPassword}/>
          </BrowserRouter>
 
     </div>

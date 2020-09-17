@@ -8,7 +8,11 @@ MyArticle.allArticle=(req,res)=>{
 
      Article.find().populate('comments')
     .then((article)=>{
-     res.json(article)
+         let sort=article.sort((a,b)=>{
+                return new Date(b.createdAt)-new Date(a.createdAt)
+         })
+         console.log("sort",sort)
+     res.json(sort)
     })
     .catch((err)=>{
         res.json(err)

@@ -8,11 +8,14 @@ export const setArticle=(data)=>{
 
 }
 export const deleteComment=(data)=>{
-    return {type: 'DELETE COMMENT',payload:data}
+    return {type: 'DELETE CMT',payload:data}
 
 }
 export const addcmt=(data)=>{
     return{type:'ADD COMMENT',payload:data}
+}
+export const getCmt=(data)=>{
+    return {type: 'GET_CMTS',payload:data}
 }
 export const startAddComment=(id ,formdata,redirect)=>{
     console.log("cmt id", id)
@@ -31,7 +34,7 @@ export const startAddComment=(id ,formdata,redirect)=>{
 
     }
 }
-export const startDeleteComment=(id ,redirect)=>{
+export const startDeleteComment=(id)=>{
     return(dispatch)=>{
 
 
@@ -57,7 +60,7 @@ export const startDeleteComment=(id ,redirect)=>{
                         'success',
                     
                     dispatch(deleteComment(data)),
-                    redirect()
+                    // redirect()
                     // window.location.href="/"
                       )
               
@@ -74,45 +77,19 @@ export const startDeleteComment=(id ,redirect)=>{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
              
             }
           })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         
+    }
+}
+export  const startGetAllComments=()=>{
+    return(dispatch)=>{
+        axios.get('http://localhost:7000/article/comments')
+         .then((res)=>{
+             console.log("all comments",res.data)
+             dispatch(getCmt(res.data))
+         })
     }
 }

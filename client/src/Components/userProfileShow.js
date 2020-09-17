@@ -42,8 +42,9 @@ class userProfileShow extends Component {
             <div>
                
            
-        <h1 style={{fontFamily:"Times New Roman"}}> username:{this.props.user?.username} {follow? <button class="btn btn-outline-danger" onClick={()=>{this.handleUnfollow(this.props.user?._id)}}><FontAwesomeIcon icon="minus-square"/> unfollow</button>:<button class="btn btn-outline-primary" onClick={()=>{this.handleFollow(this.props.user?._id)}}><FontAwesomeIcon icon="plus-square"/> follow</button>} </h1><br/>
+        <h3 style={{fontFamily:"Times New Roman"}}> username:{this.props.user?.username} {follow? <button class="btn btn-outline-danger" onClick={()=>{this.handleUnfollow(this.props.user?._id)}}><FontAwesomeIcon icon="minus-square"/> unfollow</button>:<button class="btn btn-outline-primary" onClick={()=>{this.handleFollow(this.props.user?._id)}}><FontAwesomeIcon icon="plus-square"/> follow</button>} </h3><br/>
                <h1 style={{fontFamily:"Times New Roman"}}> Number of posts :{this.props.articles.length}</h1>
+        <h4>  {this.props.user?.followers.length}followers      {this.props.user?.following.length} following</h4> 
                
             {
 
