@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {connect } from 'react-redux'
 import { startUpdateArticle } from '../Actions/MyAricleAction';
 
+
  class EditForm extends Component {
      constructor(props) {
          super(props);
@@ -22,6 +23,8 @@ import { startUpdateArticle } from '../Actions/MyAricleAction';
             this.props.history.push("/users/myarticles")
         }
         const id=this.props.article._id
+        
+        
         this.props.dispatch(startUpdateArticle(id,formdata,redirect))
 
      }

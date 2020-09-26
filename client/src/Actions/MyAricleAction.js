@@ -56,6 +56,7 @@ export const startDeleteArticle=(id)=>{
 export const startUpdateArticle=(id,formdata,redirect)=>
 {
     return(dispatch)=>{
+        
         axios.put(`http://localhost:7000/users/myarticles/${id}`, formdata,{headers:{'Authorization':localStorage.getItem('authToken')}})
         .then((response)=>{
             console.log(response.data)

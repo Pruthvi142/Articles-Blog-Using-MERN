@@ -2,7 +2,7 @@ const userReducer=(state={},action)=>{
     switch(action.type)
     {
         case 'SET_USER':{
-         console.log("reducers",action.payload)
+         console.log("reducers user",action.payload)
             return {...action.payload}
         }
 

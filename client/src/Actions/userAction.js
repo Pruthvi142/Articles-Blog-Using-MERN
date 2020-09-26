@@ -75,21 +75,33 @@ export const startUserLogin=(formdata,redirect)=>{
               }
               else
               {
-                Swal.fire({
+                
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    onOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  
+                  Toast.fire({
                     icon: 'success',
-                    position:"top",
-                    title: 'login sucessfully',
+                    title: "login succssfully",
                    
-                  }).then(result=>{
-                       if(result.value)
-                       {
+                  })
+
+                
 
                         console.log(respones.data.token)
                         localStorage.setItem('authToken',respones.data.token)
         
                         axios.get('http://localhost:7000/users/account',{headers:{'Authorization':localStorage.getItem('authToken')}})
                         .then((respones)=>{
-                              console.log(respones.data)
+                              console.log("log in",respones.data)
                               const user=respones.data
                               dispatch(setUser(user))
                               redirect()
@@ -98,11 +110,14 @@ export const startUserLogin=(formdata,redirect)=>{
                         .catch((err)=>{
                             console.log(err)
                         })
-                           }
-                  })
+                        
+                        
+                
                   .catch((err)=>{
                       console.log(err)
                   })
+
+                  
              }
           })
      }
@@ -112,7 +127,7 @@ export const startGetUser=()=>{
         axios.get('http://localhost:7000/users/account',{headers:{'Authorization':localStorage.getItem('authToken')}})
         .then((response)=>{
             const users=response.data
-             console.log( "login",users)
+             console.log( "get data",users)
             dispatch(setUser(users))
         }) 
         .catch((err)=>{

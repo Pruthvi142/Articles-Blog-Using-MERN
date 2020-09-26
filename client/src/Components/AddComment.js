@@ -55,7 +55,9 @@ import  { startAddComment } from '../Actions/commentAction'
     }
 }
 const mapStateToProps=(state,props)=>{
+    
     return{
+    
         article:state.articles.find(ele=>ele._id==props.match.params.id)
     }
 }

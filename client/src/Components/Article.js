@@ -4,12 +4,14 @@ import {startGetArticle} from '../Actions/ArticlActions'
 import {selectUser} from '../selectors/alluser'
 import{selectLikeUser} from '../selectors/selectLikeUser'
 import  {connect} from 'react-redux'
-import { startGetAllUsers } from '../Actions/userAction'
+import { startGetAllUsers, startGetUser } from '../Actions/userAction'
 import {BsFillChatDotsFill,BsFillPersonFill} from "react-icons/bs";
 import moment from 'moment'
 import { startUserLike,startUesrDislike } from '../Actions/LikesAction'
 import {Link} from 'react-router-dom'
 import Avatar from 'react-avatar'
+import ReadMoreReact from 'read-more-react'
+import './main.css'
 
 import Swal from 'sweetalert2'
 
@@ -20,7 +22,8 @@ class Article extends Component {
     constructor(props) {
         super(props)
         this.state={  
-            sort: "",
+            search: "",
+            count:2
          
         }
     }
@@ -32,7 +35,14 @@ class Article extends Component {
   }
 
 
-  handlesort=()=>{
+  handleView=()=>{
+      
+      this.setState((prevState)=>{
+        return{
+         count:prevState.count+2
+        }
+       
+    })
 
   }
     handlePost=(e)=>{
@@ -133,17 +143,22 @@ showComent=(id)=>{
        
             this.props.dispatch(startGetArticle())
             this.props.dispatch(startGetAllUsers())
+            // this.props.dispatch(startGetUser())
        
       
 
   }
+//   componentDidUpdate(){
+//     this.props.dispatch(startGetArticle())
+//   }
     render() {
     
-        console.log("all users in component",this.props.allusers)
+        console.log("all users in component",this.props.user)
         return (
+
            
-            <div>
-              
+            <div style={{marginLeft:"20px"}}>
+             
               
                   <nav className="navbar navbar-expand-lg">
                  
@@ -154,7 +169,7 @@ showComent=(id)=>{
                     
                       </div>
                       <div className="col">
-                      <input type="text"  className="nav-link" class="form-control mr-sm-2"value ={this.state.sort} name="sort" onChange={this.handlechange} placeholder=" Search By Title" aria-label="Search" style={{width:"500px"}}/>
+                      <input type="text"  className="nav-link" class="form-control mr-sm-2"value ={this.state.search} name="search" onChange={this.handlechange} placeholder=" Search By Title" aria-label="Search" style={{width:"500px"}}/>
                       </div>
                       </div>
                 </form>
@@ -165,20 +180,22 @@ showComent=(id)=>{
                      
                 {
                     
-                this.props.article.filter(art=>art.title.includes(this.state.sort)).map(ele=>{
+                this.props.article.slice(0,this.state.count).filter(art=>art.title.includes(this.state.search)).map(ele=>{
                        let names=selectUser(this.props.allusers,ele.userId)
                        let likeUser=selectLikeUser(this.props.user,ele.likes)
                          let profile=names?.profile
                          let userid=names?._id
                         
                         return(
-                            <div className="card w-75">
+                            <div className="card mb-3 shadow-lg p-3 bg-white rounded" style={{width:1000}} >
                              <div className="card-body">
- <h2 className="card-title"> Title:{ele.title} </h2>
-                       <p className="h5">{Object.keys(this.props.user).length!==0 ?(<div>posted by<Link to ={`/users/profile/${userid}`}>{names?.username} </Link>{profile?<img  class="rounded-circle"  src={ `http://localhost:7000/${profile}`} width="20" height="20"/>:<Avatar color={Avatar.getRandomColor('sitebase', ['red'])} name={names?.username} size="25" round={true} textSizeRatio={1.75} />}</div>):(<div> posted by {names?.username} {profile?<img  class="rounded-circle"  src={ `http://localhost:7000/${profile}`} width="20" height="20"/>:<Avatar color={Avatar.getRandomColor('sitebase', ['red'])} name={names?.username} size="25" round={true} textSizeRatio={1.75} />}</div>)}</p>
-                         <p className="card-subtitle mb-2 text-muted" >posted on {moment(ele.createdAt).fromNow()}</p> 
-                             <p class="card-text">{ele.body}</p>
-                      {Object.keys(this.props.user).length!==0 ?(<div>{this.props.user._id==likeUser?(<div>  you liked{ele.likes.length} <button type="button" class="btn btn-light"  onClick={()=>{this.handleDislike(ele._id)}}> <h6 ><FontAwesomeIcon icon="thumbs-down" /> dislike</h6></button>  <button type="button" className="btn btn-light"  onClick={()=>{this.AddComment(ele._id)}}  > AddComment</button> <button type="button" className="btn btn-light" onClick={()=>{this.showComent(ele._id)}}><BsFillChatDotsFill/>view all{ele.comments.length}comments</button>     </div>):(<div>  {ele.likes.length} <button type="button" class="btn btn-light" onClick={()=>{this.handleLike(ele._id)}}> <h6 ><FontAwesomeIcon icon="thumbs-up" /> like</h6></button> <button type="button"class="btn btn-light" onClick={()=>{this.AddComment(ele._id)}}>  AddComment</button>  <button type="button" className="btn btn-light" onClick={()=>{this.showComent(ele._id)}}><BsFillChatDotsFill/>view all{ele.comments.length}comments</button>     </div>)}</div> ):(<div> {ele.likes.length}   <button type="button" class="btn btn-light"  onClick={()=>{this.handleLike(ele._id)}} ><h6 ><FontAwesomeIcon icon="thumbs-up" /> like</h6></button> <button type="button"class="btn btn-light" onClick={()=>{this.AddComment(ele._id)}}>  AddComment</button> <button type="button" className="btn btn-light" onClick={()=>{this.showComent(ele._id)}}><BsFillChatDotsFill/>view all{ele.comments.length}comments</button></div>)}
+ <h2 className="card-title">{ele.title} </h2>
+ <ReadMoreReact text={ele.body} min={20}   readMoreText=  "Click here to read more"/>
+ 
+                       <p className="h5" >{Object.keys(this.props.user).length!==0 ?(<div>{profile?<img  class="rounded-circle"  src={ `http://localhost:7000/${profile}`} width="40" height="40"/>:<Avatar color={Avatar.getRandomColor('sitebase', ['red'])} name={names?.username} size="25" round={true} textSizeRatio={1.75} />}<Link to ={`/users/profile/${userid}`}><span style={{padding:"15px"}} >{names?.username}</span> </Link></div>):(<div>  {profile?<img  class="rounded-circle"  src={ `http://localhost:7000/${profile}`} width="20" height="20"/>:<Avatar color={Avatar.getRandomColor('sitebase', ['red'])} name={names?.username} size="25" round={true} textSizeRatio={1.75} />}<span style={{padding:"12px"}}>{names?.username}</span></div>)}</p>
+                       <small class="text-muted"> posted on{moment(ele.createdAt).fromNow()}</small>
+                            
+                      {Object.keys(this.props.user).length!==0 ?(<div>{this.props.user._id==likeUser?(<div>  you liked{ele.likes.length} <button type="button" class="btn btn-light"  onClick={()=>{this.handleDislike(ele._id)}}> <h6 ><FontAwesomeIcon icon="thumbs-down" /> dislike</h6></button>  <button type="button" style={{padding:"15px"}} className="btn btn-light"  onClick={()=>{this.AddComment(ele._id)}}  > AddComment</button> <button type="button" className="btn btn-light" onClick={()=>{this.showComent(ele._id)}}><BsFillChatDotsFill/>view all{ele.comments.length}comments</button>     </div>):(<div>  {ele.likes.length} <button type="button" class="btn btn-light" onClick={()=>{this.handleLike(ele._id)}}> <h6 ><FontAwesomeIcon icon="thumbs-up" /> like</h6></button> <button type="button"class="btn btn-light" onClick={()=>{this.AddComment(ele._id)}}>  AddComment</button>  <button type="button" className="btn btn-light" onClick={()=>{this.showComent(ele._id)}}><BsFillChatDotsFill/>view all{ele.comments.length}comments</button>     </div>)}</div> ):(<div> {ele.likes.length}   <button type="button" class="btn btn-light"  onClick={()=>{this.handleLike(ele._id)}} ><h6 ><FontAwesomeIcon icon="thumbs-up" /> like</h6></button> <button type="button"class="btn btn-light" onClick={()=>{this.AddComment(ele._id)}}>  AddComment</button> <button type="button" className="btn btn-light" onClick={()=>{this.showComent(ele._id)}}><BsFillChatDotsFill/>view all{ele.comments.length}comments</button></div>)}
                        
                             </div>
                             </div>
@@ -187,12 +204,14 @@ showComent=(id)=>{
    
                     })
                 }
+         {this.state.count<this.props.article?.length!=0&& <button onClick={this.handleView} className="btn btn-outline-success"> view more</button>}      
                 
            </div> 
         )
     }
 }
 const mapStateToProps=(state)=>{
+    console.log("state",state.user)
     return{
         user:state.users,
         article:state.articles,

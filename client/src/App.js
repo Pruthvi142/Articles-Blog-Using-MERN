@@ -1,8 +1,8 @@
 import React from 'react';
 
-import 'bootstrap/dist/css/bootstrap.css'
+ import 'bootstrap/dist/css/bootstrap.css'
 import {  BsBoxArrowInLeft,BsBoxArrowInRight,BsFillPersonFill} from "react-icons/bs";
-import {Link,BrowserRouter,Route,Redirect} from 'react-router-dom'
+import {Link,BrowserRouter,Route,Redirect, Switch} from 'react-router-dom'
 import Register from './Components/Register'
 import Login from './Components/Login'
 import Artile from './Components/Article'
@@ -18,20 +18,24 @@ import UserArticleShow from './Components/AdminUserArticleShow';
 import ShowComments from './Components/ShowComment'
 import AdminAllArticles from './Components/AdminAllArticles';
 import AdminShowComment from './Components/AdminShowComment';
-import Profile from './Components/userProfileShow'
+// import Profile from './Components/userProfileShow'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Avatar from 'react-avatar'
 import ResetPassword from './Components/ResetPassword';
 import NewPassword from './Components/NewPassword';
+import ProtectedRoute from './Components/protect'
+import Profile from './Components/profile'
 
 import Swal from 'sweetalert2'
 import { library } from '@fortawesome/fontawesome-svg-core'
  import { faThumbsUp, faThumbsDown ,faUserCircle,faPlusSquare ,faMinusSquare} from '@fortawesome/free-solid-svg-icons'
+import profile from './Components/profile';
 
 library.add(faThumbsUp,faThumbsDown,faUserCircle,faPlusSquare,faMinusSquare)
 
 
 function App(props) {
+  let isAuthenticated=localStorage.getItem('authToken')
   console.log("role",props.user)
 
   const handleLogOut=()=>{
@@ -69,7 +73,7 @@ function App(props) {
          
                 
                    {props.user.role=="admin"? (<div>
-                    <div className="navbar navbar-expand-lg navbar-light bg-light">
+                    <div className="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">Articles Blog</a>
                     <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
@@ -83,11 +87,14 @@ function App(props) {
               <li class="nav-item">
                   <Link to="#" onClick={handleLogOut} class="nav-link">    <BsBoxArrowInLeft/>  Logout </Link>
               </li>  </ul> </div></div>) :(<div>
-                <div className="navbar navbar-expand-lg navbar-light bg-light">
+                <div className="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">Articles Blog</a>
                 <ul class="navbar-nav ml-auto">
   <li class="nav-item">
-              <Link to="/users/myarticles" class="nav-link"> {props.user.profile? ( <div>MyArticle-<img  class="rounded-circle" alt="100x100 " src={ `http://localhost:7000/${props.user.profile}`} width="25" height="25"/>{props.user.username}</div>):(<div>MyArticle-<Avatar color={Avatar.getRandomColor('sitebase', ['red'])} name={props.user.username} size="25" round={true} textSizeRatio={1.75} />{props.user.username}</div>)} </Link>
+              <Link to="/users/myarticles" class="nav-link">My Articles  </Link>
+</li>
+<li className="nav-item">
+  <Link to="/profile" className="nav-link">{props.user.profile? ( <div><img  class="rounded-circle" alt="100x100 " src={ `http://localhost:7000/${props.user.profile}`} width="25" height="25"/>{props.user.username}</div>):(<div><Avatar color={Avatar.getRandomColor('sitebase', ['red'])} name={props.user.username} size="25" round={true} textSizeRatio={1.75} />{props.user.username}</div>)}</Link>
 </li>
 
 <li class="nav-item">
@@ -103,38 +110,44 @@ function App(props) {
   ):
 
        (<div>
-           <div className="navbar navbar-expand-lg navbar-light bg-light">
+           <div className="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">Articles Blog</a>
              <ul class="navbar-nav ml-auto">
                    <li class="nav-item">
                        <Link  to="/user/register"class="nav-link"><BsFillPersonFill/> SignUp</Link>
                   </li>
                   <li class="nav-item">
-                       <Link to="/user/login" class="nav-link">    <BsBoxArrowInRight/>  Login </Link>
+                       <Link to="/login" class="nav-link">    <BsBoxArrowInRight/>  Login </Link>
                    </li>     
             </ul>
           </div>
         </div>)
      }
 
-
+<Switch>
          <Route path="/user/register"  component={Register}  exact={true}/>
-         <Route path="/user/login" component={Login}/>
+         <Route path="/login" component={Login} exact={true}/>
          <Route path="/" component={Artile} exact={true}/>
-         <Route path="/user/AddArticle" component={AddArticle}/>
+        <Route path="/user/AddArticle" component={AddArticle}/> 
+            
          <Route path="/users/myarticles" component={MyArticle}/>
+            
          <Route path="/users/EditArticle/:id" component={EditForm}/>
+     
          <Route path="/admin/login" component={AdminLogin}/>
          <Route path="/users/allusers" component={Allusers}/>
          <Route path="/article/comment/:id" component={Addcomment}/>
          <Route path="/admin/register" component={AdminReg}/>
          <Route path='/users/articleshow/:id' component={UserArticleShow}/>
-         <Route path="/article/showcomment/:id" component={ShowComments}/>
+         < Route path="/article/showcomment/:id" component={ShowComments}/>
          <Route path="/admin/articles" component={AdminAllArticles} exact={true }/>
          <Route path="/admin/showcomment/:id"component={AdminShowComment}/>
          <Route path="/users/profile/:id"component={Profile}/>
          <Route path="/users/forgetpassword" component={ResetPassword}/>
          <Route path="/users/reset/:id" component={NewPassword}/>
+         <Route path='/profile'component={profile}/>
+        
+         </Switch>
          </BrowserRouter>
 
     </div>

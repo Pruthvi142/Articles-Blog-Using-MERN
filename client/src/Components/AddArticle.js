@@ -43,12 +43,12 @@ import { startGetUser } from '../Actions/userAction';
     
   
     render() {
-        console.log("add user",this.props.user)
-        //    if(Object.keys(this.props.user).length==0)
-        //    {
-        //     this.props.history.push('/user/login')
-        //    }
+        console.log("add user",this.props.component)
+          
         return (
+           
+        
+            
             <div className="container"> 
             <div className="row">
                 <div className="col-md-4"></div>
@@ -74,7 +74,7 @@ import { startGetUser } from '../Actions/userAction';
     }
 }
 const mapStateToProps=(state)=>{
-    console.log("sate",state.users)
+  
     return{
         user:state.users,
     }

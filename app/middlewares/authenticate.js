@@ -27,7 +27,8 @@ const authenticateUser=(req,res,next)=>{
 
     }
      else{
-            res.status('401').json({error:"token must be provide"})
+           res.status('401').json({error:"token must be provide"})
+          
          }
 
 
