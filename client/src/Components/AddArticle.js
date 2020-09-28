@@ -56,11 +56,11 @@ import { startGetUser } from '../Actions/userAction';
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
                         <label>Title:</label>
-                        <input type="text" className="form-control" name="title" onChange={this.handleChange}/>
+                        <input type="text" className="form-control" name="title" onChange={this.handleChange} required/>
                         </div>    
                         <div className="form-group">
                           <label>Description:</label> 
-                          <textarea className="form-control" name="body" onChange={this.handleChange}/> 
+                          <textarea className="form-control" name="body" onChange={this.handleChange} required/> 
                         </div>
                         <input type="submit" className="btn btn-primary"/> 
                     </form>

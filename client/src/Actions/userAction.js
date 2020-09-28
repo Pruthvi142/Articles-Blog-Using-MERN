@@ -126,6 +126,10 @@ export const startGetUser=()=>{
     return(dispatch)=>{
         axios.get('http://localhost:7000/users/account',{headers:{'Authorization':localStorage.getItem('authToken')}})
         .then((response)=>{
+            if(response.data.hasOwnProperty('errors'))
+            {
+                alert("hi")
+            }
             const users=response.data
              console.log( "get data",users)
             dispatch(setUser(users))

@@ -40,7 +40,7 @@ class Login extends Component {
     
     render() {
         return (
-            <div className="container-fluid bg">
+            <div className="container-fluid ">
                 <div className="row" >
                     <div className="col-md-4"></div>
                     <div className="col-md-3">
@@ -49,7 +49,7 @@ class Login extends Component {
                             
                       
                             <div className="form-group">
-                              <label style={{color:"white"}}>Email:</label>
+                              <label >Email:</label>
                               <div className="input-group">
                               <div class="input-group-prepend">
                                 <span class="input-group-text"><BsEnvelopeFill/></span>
@@ -58,17 +58,17 @@ class Login extends Component {
                                </div>
                             </div>
                             <div className="form-group">
-                              <label style={{color:"white"}}>password:</label>
+                              <label >Password:</label>
                               <div className="input-group">
                               <div class="input-group-prepend">
                                 <span class="input-group-text"><BsLock/></span>
                               </div>
 
-                              <input type="password" className="form-control" name="password" value={this.state.value} onChange={this.handleChange} required />
+                              <input type="password" className="form-control" name="password" value={this.state.value} onChange={this.handleChange}  placeholder="Enter the password" required />
 </div>
                             </div>
-                            <input type="submit" class="btn btn-success" value="submit"/>
-                            <h5> <Link to="/users/forgetpassword">forget password</Link></h5>
+                            <input type="submit" class="btn btn-success" value="submit"/><span style={{padding:"30px"}}> <Link to="/users/forgetpassword">forget password?</Link></span>
+                            
                         </form>
                     </div>
                   

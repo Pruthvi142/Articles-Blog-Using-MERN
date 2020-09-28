@@ -18,13 +18,13 @@ import UserArticleShow from './Components/AdminUserArticleShow';
 import ShowComments from './Components/ShowComment'
 import AdminAllArticles from './Components/AdminAllArticles';
 import AdminShowComment from './Components/AdminShowComment';
-// import Profile from './Components/userProfileShow'
+import ProfileShow from './Components/userProfileShow'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Avatar from 'react-avatar'
 import ResetPassword from './Components/ResetPassword';
 import NewPassword from './Components/NewPassword';
 import ProtectedRoute from './Components/protect'
-import Profile from './Components/profile'
+ import Profile from './Components/profile'
 
 import Swal from 'sweetalert2'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -128,24 +128,30 @@ function App(props) {
          <Route path="/user/register"  component={Register}  exact={true}/>
          <Route path="/login" component={Login} exact={true}/>
          <Route path="/" component={Artile} exact={true}/>
-        <Route path="/user/AddArticle" component={AddArticle}/> 
-            
-         <Route path="/users/myarticles" component={MyArticle}/>
-            
-         <Route path="/users/EditArticle/:id" component={EditForm}/>
-     
          <Route path="/admin/login" component={AdminLogin}/>
-         <Route path="/users/allusers" component={Allusers}/>
-         <Route path="/article/comment/:id" component={Addcomment}/>
-         <Route path="/admin/register" component={AdminReg}/>
-         <Route path='/users/articleshow/:id' component={UserArticleShow}/>
-         < Route path="/article/showcomment/:id" component={ShowComments}/>
-         <Route path="/admin/articles" component={AdminAllArticles} exact={true }/>
-         <Route path="/admin/showcomment/:id"component={AdminShowComment}/>
-         <Route path="/users/profile/:id"component={Profile}/>
-         <Route path="/users/forgetpassword" component={ResetPassword}/>
-         <Route path="/users/reset/:id" component={NewPassword}/>
-         <Route path='/profile'component={profile}/>
+         <Route path="/admin/register" component={AdminReg}/> 
+       {isAuthenticated?  < Route path="/article/showcomment/:id" component={ShowComments}/>: <Redirect to={{ pathname: '/login' }} />} 
+       {isAuthenticated?  <Route path="/admin/showcomment/:id"component={AdminShowComment}/>: <Redirect to={{ pathname: '/login' }} />}
+      {isAuthenticated?<Route path="/user/AddArticle" component={AddArticle}/> : <Redirect to={{ pathname: '/login' }} />}  
+            
+      {isAuthenticated?   <Route path="/users/myarticles" component={MyArticle}/>:<Redirect to={{ pathname: '/login' }} />}
+            
+      {isAuthenticated?   <Route path="/users/EditArticle/:id" component={EditForm}/>:<Redirect to={{ pathname: '/login' }} />}  
+     
+       
+      {isAuthenticated?  <Route path="/users/allusers" component={Allusers}/>:<Redirect to={{ pathname: '/login' }} />}
+
+     {isAuthenticated?<Route path="/article/comment/:id" component={Addcomment}/>:<Redirect to={{ pathname: '/login' }} />}   
+
+           {isAuthenticated? <Route path='/users/articleshow/:id' component={UserArticleShow}/>:<Redirect to={{ pathname: '/login' }} />} 
+
+        
+      {isAuthenticated?   <Route path="/admin/articles" component={AdminAllArticles} exact={true }/>:<Redirect to={{ pathname: '/login' }} />}
+         
+     {isAuthenticated?<Route path="/users/profile/:id"component={ProfileShow}/>:<Redirect to={{ pathname: '/login' }} />}    
+      {isAuthenticated?  <Route path="/users/forgetpassword" component={ResetPassword}/>:<Redirect to={{ pathname: '/login' }} />}
+        {isAuthenticated? <Route path="/users/reset/:id" component={NewPassword}/>:<Redirect to={{ pathname: '/login' }} />}
+        {isAuthenticated? <Route path='/profile'component={profile}/>:<Redirect to={{ pathname: '/login' }} />}
         
          </Switch>
          </BrowserRouter>

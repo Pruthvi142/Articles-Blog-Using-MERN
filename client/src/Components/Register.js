@@ -43,18 +43,19 @@ class Register extends Component {
     
     render() {
         return (
-            <div className="container-fluid bgReg">
+            <div className="container-fluid ">
                 <div className="row">
                     <div className="col-md-4"></div>
                     <div className="col-md-3">
-                    <h2 style={{marginTop:"4vh",color:"white"}} >Register with us</h2>
-                        <form className="container" onSubmit={this.handleSubmit} style={{marginTop:"10vh"}} encType="multipart/form-data">
+                    <h2 style={{marginTop:"4vh"}} >Register with us</h2>
+                        <form className="form-conatianer" onSubmit={this.handleSubmit} style={{marginTop:"10vh",width:400}}>
                         
                         <div className="form-group">
+                          <label>Profile</label>
                            <input type="file" className="form-control"  name="profile" value={this.state.value} onChange={this.handleProfile} />         
                         </div>
                             <div className="form-group">
-                              <label style={{color:"white"}}>username:</label>
+                              <label >Username:</label>
                                {/* display the icon */}
                               <div className="input-group">
                               <div class="input-group-prepend">
@@ -65,7 +66,7 @@ class Register extends Component {
                             </div>
 
                             <div className="form-group">
-                              <label style={{color:"white"}}>email:</label>
+                              <label >Email:</label>
                               <div className="input-group">
                               <div class="input-group-prepend">
                                 <span class="input-group-text"><BsEnvelopeFill/></span>
@@ -74,7 +75,7 @@ class Register extends Component {
                                </div>
                             </div>
                             <div className="form-group">
-                              <label style={{color:"white"}}>password:</label>
+                              <label >Password:</label>
                               <div className="input-group">
                               <div class="input-group-prepend">
                                 <span class="input-group-text"><BsLock/></span>

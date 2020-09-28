@@ -97,7 +97,15 @@ userCltr.login=(req,res)=>{
 
 userCltr.account=(req,res)=>{
     console.log("account",req.user)
-    res.json(req.user)
+    if(!(req.user))
+    {
+        res.json({errors:"invalid "})
+        console.log("hi")
+    }
+    else{
+        res.json(req.user)
+    }
+   
 
 }
 userCltr.list=(req,res)=>{

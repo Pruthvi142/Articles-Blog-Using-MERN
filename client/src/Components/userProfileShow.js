@@ -46,10 +46,11 @@ class userProfileShow extends Component {
                <h1 style={{fontFamily:"Times New Roman"}}> Number of posts :{this.props.articles.length}</h1>
         <h4>  {this.props.user?.followers.length}followers      {this.props.user?.following.length} following</h4> 
                
+    
             {
+      
 
-
-                      this.props.articles.map(ele=>{
+                 follow? this.props.articles.map(ele=>{
                      // console.log("name",selectUser(this.props.allusers,ele.userId))
                       // console.log( "name",name)
                            return(
@@ -62,7 +63,7 @@ class userProfileShow extends Component {
                        </div>
                       )
 
-                     })
+                     }):""
 
         }
 

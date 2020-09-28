@@ -22,6 +22,7 @@ export const startArticlePost=( formdata,redirect)=>{
     return(dispatch)=>{
         axios.post('http://localhost:7000/users/articles',formdata,{headers:{'Authorization':localStorage.getItem('authToken')}})
           .then((respones)=>{
+           
               console.log(respones.data)
               const article=respones.data
               dispatch(setArticle(article))

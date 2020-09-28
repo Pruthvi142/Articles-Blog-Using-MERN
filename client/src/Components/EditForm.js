@@ -42,12 +42,12 @@ import { startUpdateArticle } from '../Actions/MyAricleAction';
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
                             <label>Title</label>
-                            <input type="text" name="title" value={this.state.title} className="form-control" onChange={this.handleChange}/>
+                            <input type="text" name="title" value={this.state.title} className="form-control" onChange={this.handleChange} required/>
                         </div>
 
                         <div className="form-group">
                             <label>Description</label>
-                            <textarea name="body" value={this.state.body} className="form-control" onChange={this.handleChange}/>
+                            <textarea name="body" value={this.state.body} className="form-control" onChange={this.handleChange} required/>
                         </div>
                         <input type="submit" value="submit"  className="btn btn-primary"/>
                     </form>  
